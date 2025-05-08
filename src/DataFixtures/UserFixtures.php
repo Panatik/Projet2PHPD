@@ -33,7 +33,7 @@ class UserFixtures extends Fixture
             ->setRoles(['ROLE_PLAYER'])
             ->setPassword($this->hasher->hashPassword($player,'user'.$p))
             ->setLastName('last_name'.$p)
-            ->setFirstName('first_name'.$p)
+            ->setFirstName('Pierre')
             ->setUsername('user'.$p)
             ->setStatus('actif');
             $manager->persist($player);
