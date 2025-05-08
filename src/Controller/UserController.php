@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\EntityManagerInterface;
-
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 
 
@@ -28,7 +28,7 @@ final class UserController extends AbstractController
         return $this->json($user); 
     }
 
-    #[Route('/register', name: 'create', methods: ['POST'])]
+    #[Route('/register', name: 'create', methods: 'POST')]
     public function add_player(Request $request, EntityManagerInterface $em, ValidatorInterface $validator, UserPasswordHasherInterface $passwordHasher): JsonResponse {
         $data = json_decode($request->getContent(), true);
 

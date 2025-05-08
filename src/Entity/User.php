@@ -45,7 +45,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     #[Assert\Choice(choices: ['actif', 'suspendu', 'banni'], message: "Statut invalide.")]
-    private ?string $status = null;
+    private ?string $status = 'actif';
     
 
     

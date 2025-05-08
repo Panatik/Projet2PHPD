@@ -4,6 +4,7 @@
 
 return [
     '_preview_error' => [['code', '_format'], ['_controller' => 'error_controller::preview', '_format' => 'html'], ['code' => '\\d+'], [['variable', '.', '[^/]++', '_format', true], ['variable', '/', '\\d+', 'code', true], ['text', '/_error']], [], [], []],
+    'api_login_check' => [[], [], [], [['text', '/api/login_check']], [], [], []],
     '_wdt_stylesheet' => [[], ['_controller' => 'web_profiler.controller.profiler::toolbarStylesheetAction'], [], [['text', '/_wdt/styles']], [], [], []],
     '_wdt' => [['token'], ['_controller' => 'web_profiler.controller.profiler::toolbarAction'], [], [['variable', '/', '[^/]++', 'token', true], ['text', '/_wdt']], [], [], []],
     '_profiler_home' => [[], ['_controller' => 'web_profiler.controller.profiler::homeAction'], [], [['text', '/_profiler/']], [], [], []],
@@ -32,7 +33,7 @@ return [
     'App\Controller\SportMatchController::edit_match' => [['id'], ['_controller' => 'App\\Controller\\UserController::edit_player'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/players']], [], [], []],
     'App\Controller\SportMatchController::delete_match' => [['id'], ['_controller' => 'App\\Controller\\UserController::delete_player'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/players']], [], [], []],
     'App\Controller\TournamentController::index' => [[], ['_controller' => 'App\\Controller\\UserController::index'], [], [['text', '/api/players']], [], [], []],
-    'App\Controller\TournamentController::add_tournament' => [[], ['_controller' => 'App\\Controller\\UserController::add_player'], [], [['text', '/register']], [], [], []],
+    'App\Controller\TournamentController::createTournament' => [[], ['_controller' => 'App\\Controller\\UserController::add_player'], [], [['text', '/register']], [], [], []],
     'App\Controller\TournamentController::get_tournament' => [['id'], ['_controller' => 'App\\Controller\\UserController::get_player'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/players']], [], [], []],
     'App\Controller\TournamentController::edit_tournament' => [['id'], ['_controller' => 'App\\Controller\\UserController::edit_player'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/players']], [], [], []],
     'App\Controller\TournamentController::delete_tournament' => [['id'], ['_controller' => 'App\\Controller\\UserController::delete_player'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/players']], [], [], []],
