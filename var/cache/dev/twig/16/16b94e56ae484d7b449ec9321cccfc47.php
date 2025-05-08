@@ -1678,6 +1678,6 @@ class __TwigTemplate_c0d92174134066201dc70fe0b4db16cb extends Template
 {% macro render_time_cell(item) %}
     <span class=\"nowrap\">{{ '%.2f'|format(item.time * 1000) }} ms</span>
 {% endmacro %}
-", "@WebProfiler/Collector/serializer.html.twig", "C:\\Users\\alici\\Desktop\\B2\\2PHP\\Projet\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Collector\\serializer.html.twig");
+", "@WebProfiler/Collector/serializer.html.twig", "C:\\Users\\erwan\\Desktop\\FOLDERS\\2PHPD\\Projet2PHPD\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Collector\\serializer.html.twig");
     }
 }

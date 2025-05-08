@@ -31,11 +31,11 @@ class SportMatch
     private ?Tournament $tournament = null;
 
     #[ORM\ManyToOne(inversedBy: 'player1')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $palyer1 = null;
 
     #[ORM\ManyToOne(inversedBy: 'player2')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $player2 = null;
 
     public function getId(): ?int

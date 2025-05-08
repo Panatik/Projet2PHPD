@@ -1042,6 +1042,6 @@ class __TwigTemplate_7b0377cdfac24949882c4bf11c22c832 extends Template
         </table>
     {% endif %}
 {% endblock %}
-", "@WebProfiler/Collector/config.html.twig", "C:\\Users\\alici\\Desktop\\B2\\2PHP\\Projet\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Collector\\config.html.twig");
+", "@WebProfiler/Collector/config.html.twig", "C:\\Users\\erwan\\Desktop\\FOLDERS\\2PHPD\\Projet2PHPD\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Collector\\config.html.twig");
     }
 }

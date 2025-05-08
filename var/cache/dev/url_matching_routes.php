@@ -15,10 +15,8 @@ return [
         '/_profiler/phpinfo' => [[['_route' => '_profiler_phpinfo', '_controller' => 'web_profiler.controller.profiler::phpinfoAction'], null, null, null, false, false, null]],
         '/_profiler/xdebug' => [[['_route' => '_profiler_xdebug', '_controller' => 'web_profiler.controller.profiler::xdebugAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
-        '/registration' => [[['_route' => 'app_registration', '_controller' => 'App\\Controller\\RegistrationController::index'], null, null, null, false, false, null]],
-        '/sport/match' => [[['_route' => 'app_sport_match', '_controller' => 'App\\Controller\\SportMatchController::index'], null, null, null, false, false, null]],
-        '/tournament' => [[['_route' => 'app_tournament', '_controller' => 'App\\Controller\\TournamentController::index'], null, null, null, false, false, null]],
-        '/user' => [[['_route' => 'app_user', '_controller' => 'App\\Controller\\UserController::index'], null, null, null, false, false, null]],
+        '/api/players' => [[['_route' => 'get_all', '_controller' => 'App\\Controller\\UserController::index'], null, ['GET' => 0], null, false, false, null]],
+        '/register' => [[['_route' => 'create', '_controller' => 'App\\Controller\\UserController::add_player'], null, ['POST' => 0], null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'
@@ -40,6 +38,9 @@ return [
                         .')'
                     .')'
                 .')'
+                .'|/api/players/([^/]++)(?'
+                    .'|(*:226)'
+                .')'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -50,8 +51,11 @@ return [
         148 => [[['_route' => '_profiler_router', '_controller' => 'web_profiler.controller.router::panelAction'], ['token'], null, null, false, false, null]],
         168 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
         181 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
-        191 => [
-            [['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null],
+        191 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
+        226 => [
+            [['_route' => 'get', '_controller' => 'App\\Controller\\UserController::get_player'], ['id'], ['GET' => 0], null, false, true, null],
+            [['_route' => 'edit', '_controller' => 'App\\Controller\\UserController::edit_player'], ['id'], ['PUT' => 0], null, false, true, null],
+            [['_route' => 'delete', '_controller' => 'App\\Controller\\UserController::delete_player'], ['id'], ['DELETE' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
     ],
