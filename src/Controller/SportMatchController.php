@@ -13,14 +13,14 @@ use Doctrine\ORM\EntityManagerInterface;
 
 final class SportMatchController extends AbstractController
 {
-    #[Route('/api/tournaments/{id}/sport-matchs', name: 'get_all', methods: 'GET')]
+    #[Route('/api/tournaments/{id}/sport-matchs', name: 'get_all', methods: 'GET')] 
     public function index(EntityManagerInterface $em): JsonResponse
     {
         $match = $em->getRepository(SportMatch::class)->findAll();
         return $this->json($match); //self.json
     }
 
-    #[Route('/api/tournaments/{id}/sport-matchs', name: 'create', methods: 'POST')]
+    #[Route('/api/tournaments/{id}/sport-matchs', name: 'create', methods: 'POST')] //crée un nv tournois
     public function create_match(EntityManagerInterface $em): JsonResponse
     {
         $match = $em->getRepository(SportMatch::class)->findAll();
