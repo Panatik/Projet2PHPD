@@ -1,1 +1,83 @@
-{"resources":[{"@type":"Symfony\\Component\\Config\\Resource\\FileResource","resource":"C:\\Users\\erwan\\Desktop\\FOLDERS\\2PHPD\\Projet2PHPD\\config\\routes\\framework.yaml"},{"@type":"Symfony\\Component\\Config\\Resource\\FileResource","resource":"C:\\Users\\erwan\\Desktop\\FOLDERS\\2PHPD\\Projet2PHPD\\vendor\\symfony\\framework-bundle\\Resources\\config\\routing\\errors.xml"},{"@type":"Symfony\\Component\\Config\\Resource\\FileResource","resource":"C:\\Users\\erwan\\Desktop\\FOLDERS\\2PHPD\\Projet2PHPD\\config\\routes\\security.yaml"},{"@type":"Symfony\\Component\\DependencyInjection\\Config\\ContainerParametersResource","parameters":{"security.logout_uris":[]}},{"@type":"Symfony\\Component\\Config\\Resource\\FileResource","resource":"C:\\Users\\erwan\\Desktop\\FOLDERS\\2PHPD\\Projet2PHPD\\vendor\\symfony\\security-bundle\\Routing\\LogoutRouteLoader.php"},{"@type":"Symfony\\Component\\Config\\Resource\\FileResource","resource":"C:\\Users\\erwan\\Desktop\\FOLDERS\\2PHPD\\Projet2PHPD\\config\\routes\\web_profiler.yaml"},{"@type":"Symfony\\Component\\Config\\Resource\\FileResource","resource":"C:\\Users\\erwan\\Desktop\\FOLDERS\\2PHPD\\Projet2PHPD\\vendor\\symfony\\web-profiler-bundle\\Resources\\config\\routing\\wdt.xml"},{"@type":"Symfony\\Component\\Config\\Resource\\FileResource","resource":"C:\\Users\\erwan\\Desktop\\FOLDERS\\2PHPD\\Projet2PHPD\\vendor\\symfony\\web-profiler-bundle\\Resources\\config\\routing\\profiler.xml"},{"@type":"Symfony\\Component\\Config\\Resource\\FileResource","resource":"C:\\Users\\erwan\\Desktop\\FOLDERS\\2PHPD\\Projet2PHPD\\config\\routes.yaml"},{"@type":"Symfony\\Component\\Config\\Resource\\DirectoryResource","resource":"C:\\Users\\erwan\\Desktop\\FOLDERS\\2PHPD\\Projet2PHPD\\src\\Controller","pattern":"/\\.php$/"},{"@type":"Symfony\\Component\\Config\\Resource\\FileResource","resource":"C:\\Users\\erwan\\Desktop\\FOLDERS\\2PHPD\\Projet2PHPD\\src\\Controller\\RegistrationController.php"},{"@type":"Symfony\\Component\\Config\\Resource\\FileResource","resource":"C:\\Users\\erwan\\Desktop\\FOLDERS\\2PHPD\\Projet2PHPD\\src\\Controller\\SportMatchController.php"},{"@type":"Symfony\\Component\\Config\\Resource\\FileResource","resource":"C:\\Users\\erwan\\Desktop\\FOLDERS\\2PHPD\\Projet2PHPD\\src\\Controller\\TournamentController.php"},{"@type":"Symfony\\Component\\Config\\Resource\\FileResource","resource":"C:\\Users\\erwan\\Desktop\\FOLDERS\\2PHPD\\Projet2PHPD\\src\\Controller\\UserController.php"},{"@type":"Symfony\\Component\\Config\\Resource\\FileResource","resource":"C:\\Users\\erwan\\Desktop\\FOLDERS\\2PHPD\\Projet2PHPD\\src\\Kernel.php"},{"@type":"Symfony\\Component\\Config\\Resource\\FileResource","resource":"C:\\Users\\erwan\\Desktop\\FOLDERS\\2PHPD\\Projet2PHPD\\vendor\\symfony\\http-kernel\\Kernel.php"},{"@type":"Symfony\\Component\\DependencyInjection\\Config\\ContainerParametersResource","parameters":[]},{"@type":"Symfony\\Component\\Config\\Resource\\FileResource","resource":"C:\\Users\\erwan\\Desktop\\FOLDERS\\2PHPD\\Projet2PHPD\\var\\cache\\dev\\App_KernelDevDebugContainer.php"}]}
+{
+    "resources": [
+        {
+            "@type": "Symfony\\Component\\Config\\Resource\\FileResource",
+            "resource": "C:\\Users\\Administrateur\\Desktop\\Projet_2PHPD\\Projet2PHPD\\config\\routes\\framework.yaml"
+        },
+        {
+            "@type": "Symfony\\Component\\Config\\Resource\\FileResource",
+            "resource": "C:\\Users\\Administrateur\\Desktop\\Projet_2PHPD\\Projet2PHPD\\vendor\\symfony\\framework-bundle\\Resources\\config\\routing\\errors.xml"
+        },
+        {
+            "@type": "Symfony\\Component\\Config\\Resource\\FileResource",
+            "resource": "C:\\Users\\Administrateur\\Desktop\\Projet_2PHPD\\Projet2PHPD\\config\\routes\\lexik_jwt.yaml"
+        },
+        {
+            "@type": "Symfony\\Component\\Config\\Resource\\FileResource",
+            "resource": "C:\\Users\\Administrateur\\Desktop\\Projet_2PHPD\\Projet2PHPD\\config\\routes\\security.yaml"
+        },
+        {
+            "@type": "Symfony\\Component\\DependencyInjection\\Config\\ContainerParametersResource",
+            "parameters": {
+                "security.logout_uris": []
+            }
+        },
+        {
+            "@type": "Symfony\\Component\\Config\\Resource\\FileResource",
+            "resource": "C:\\Users\\Administrateur\\Desktop\\Projet_2PHPD\\Projet2PHPD\\vendor\\symfony\\security-bundle\\Routing\\LogoutRouteLoader.php"
+        },
+        {
+            "@type": "Symfony\\Component\\Config\\Resource\\FileResource",
+            "resource": "C:\\Users\\Administrateur\\Desktop\\Projet_2PHPD\\Projet2PHPD\\config\\routes\\web_profiler.yaml"
+        },
+        {
+            "@type": "Symfony\\Component\\Config\\Resource\\FileResource",
+            "resource": "C:\\Users\\Administrateur\\Desktop\\Projet_2PHPD\\Projet2PHPD\\vendor\\symfony\\web-profiler-bundle\\Resources\\config\\routing\\wdt.xml"
+        },
+        {
+            "@type": "Symfony\\Component\\Config\\Resource\\FileResource",
+            "resource": "C:\\Users\\Administrateur\\Desktop\\Projet_2PHPD\\Projet2PHPD\\vendor\\symfony\\web-profiler-bundle\\Resources\\config\\routing\\profiler.xml"
+        },
+        {
+            "@type": "Symfony\\Component\\Config\\Resource\\FileResource",
+            "resource": "C:\\Users\\Administrateur\\Desktop\\Projet_2PHPD\\Projet2PHPD\\config\\routes.yaml"
+        },
+        {
+            "@type": "Symfony\\Component\\Config\\Resource\\DirectoryResource",
+            "resource": "C:\\Users\\Administrateur\\Desktop\\Projet_2PHPD\\Projet2PHPD\\src\\Controller",
+            "pattern": "/\\.php$/"
+        },
+        {
+            "@type": "Symfony\\Component\\Config\\Resource\\FileResource",
+            "resource": "C:\\Users\\Administrateur\\Desktop\\Projet_2PHPD\\Projet2PHPD\\src\\Controller\\RegistrationController.php"
+        },
+        {
+            "@type": "Symfony\\Component\\Config\\Resource\\FileResource",
+            "resource": "C:\\Users\\Administrateur\\Desktop\\Projet_2PHPD\\Projet2PHPD\\src\\Controller\\SportMatchController.php"
+        },
+        {
+            "@type": "Symfony\\Component\\Config\\Resource\\FileResource",
+            "resource": "C:\\Users\\Administrateur\\Desktop\\Projet_2PHPD\\Projet2PHPD\\src\\Controller\\TournamentController.php"
+        },
+        {
+            "@type": "Symfony\\Component\\Config\\Resource\\FileResource",
+            "resource": "C:\\Users\\Administrateur\\Desktop\\Projet_2PHPD\\Projet2PHPD\\src\\Controller\\UserController.php"
+        },
+        {
+            "@type": "Symfony\\Component\\Config\\Resource\\FileResource",
+            "resource": "C:\\Users\\Administrateur\\Desktop\\Projet_2PHPD\\Projet2PHPD\\src\\Kernel.php"
+        },
+        {
+            "@type": "Symfony\\Component\\Config\\Resource\\FileResource",
+            "resource": "C:\\Users\\Administrateur\\Desktop\\Projet_2PHPD\\Projet2PHPD\\vendor\\symfony\\http-kernel\\Kernel.php"
+        },
+        {
+            "@type": "Symfony\\Component\\DependencyInjection\\Config\\ContainerParametersResource",
+            "parameters": []
+        },
+        {
+            "@type": "Symfony\\Component\\Config\\Resource\\FileResource",
+            "resource": "C:\\Users\\Administrateur\\Desktop\\Projet_2PHPD\\Projet2PHPD\\var\\cache\\dev\\App_KernelDevDebugContainer.php"
+        }
+    ]
+}
