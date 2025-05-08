@@ -1,1 +1,8 @@
 f30c6c,127.0.0.1,GET,http://127.0.0.1:8000/,1746449093,,404,request
+13468f,127.0.0.1,GET,http://127.0.0.1:8000/,1746716859,,404,request
+932f93,127.0.0.1,GET,http://127.0.0.1:8000/api/players,1746716883,6afe2b,500,request
+6afe2b,127.0.0.1,GET,http://127.0.0.1:8000/api/players,1746716883,,500,request
+213f33,127.0.0.1,GET,http://127.0.0.1:8000/api/players,1746717986,,200,request
+65d06a,127.0.0.1,GET,http://127.0.0.1:8000/favicon.ico,1746717987,b1b780,404,request
+b1b780,127.0.0.1,GET,http://127.0.0.1:8000/favicon.ico,1746717987,,404,request
+26b535,127.0.0.1,GET,http://127.0.0.1:8000/api/players,1746718034,,200,request

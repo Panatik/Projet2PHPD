@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\SportMatchRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SportMatchRepository::class)]
 class SportMatch
@@ -15,27 +16,34 @@ class SportMatch
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotNull]
+    #[Assert\Date]
     private ?\DateTime $matchDate = null;
 
     #[ORM\Column]
+    #[Assert\PositiveOrZero]
     private ?int $scorePlayer1 = null;
 
     #[ORM\Column]
+    #[Assert\PositiveOrZero]
     private ?int $scorePlayer2 = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $status = null;
+    #[Assert\Choice(choices: ['en attente', 'en cours', 'terminé'])]
+    private ?string $status = 'en attente';
 
-    #[ORM\ManyToOne(inversedBy: 'sportMatches')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'sportMatches')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Tournament $tournament = null;
 
-    #[ORM\ManyToOne(inversedBy: 'player1')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'player1')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotNull]
     private ?User $palyer1 = null;
 
-    #[ORM\ManyToOne(inversedBy: 'player2')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'player2')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotNull]
     private ?User $player2 = null;
 
     public function getId(): ?int
