@@ -13,14 +13,14 @@ use Doctrine\ORM\EntityManagerInterface;
 
 final class SportMatchController extends AbstractController
 {
-    #[Route('/api/tournaments/{id}/sport-matchs', name: 'get_all', methods: 'GET')]
-    public function index(Tournament $tournament): JsonResponse
+    #[Route('/api/tournaments/{id}/sport-matchs', name: 'get_all_match', methods: 'GET')]
+    public function get_matches(Tournament $tournament): JsonResponse
     {
         $matches = $tournament->getSportMatches();
         return $this->json($matches, 200, [], ['groups' => 'match:read']);
     }
 
-    #[Route('/api/tournaments/{id}/sport-matchs', name: 'create', methods: 'POST')]
+    #[Route('/api/tournaments/{id}/sport-matchs', name: 'create_match', methods: 'POST')]
     public function create_match(Request $request, Tournament $tournament, EntityManagerInterface $em): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
@@ -52,7 +52,7 @@ final class SportMatchController extends AbstractController
         return $this->json(['message' => 'Match created'], 201);
     }
     
-    #[Route('/api/tournaments/{idTournament}/sport-matchs/{idSportMatchs}', name: 'get', methods: 'GET')]
+    #[Route('/api/tournaments/{idTournament}/sport-matchs/{idSportMatchs}', name: 'get_match', methods: 'GET')]
     public function get_match(Tournament $tournament, SportMatch $match): JsonResponse
     {
         if ($match->getTournament()->getId() !== $tournament->getId()) {
@@ -108,7 +108,7 @@ final class SportMatchController extends AbstractController
         return $this->json(['message' => 'Match updated'], 200);
     }
 
-    #[Route('/api/tournaments/{idTournament}/sport-matchs/{idSportMatchs}', name: 'delete', methods: 'DELETE')]
+    #[Route('/api/tournaments/{idTournament}/sport-matchs/{idSportMatchs}', name: 'delete_match', methods: 'DELETE')]
     public function delete_match(Tournament $tournament, SportMatch $match, EntityManagerInterface $em): JsonResponse
     {
         if ($match->getTournament()->getId() !== $tournament->getId()) {

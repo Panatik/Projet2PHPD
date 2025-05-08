@@ -32,13 +32,15 @@ class Tournament
     private ?string $description = null;
 
     #[ORM\Column]
+    #[Assert\NotNull(message: "Le nombre maximal de participants est requis.")]
     private ?int $maxParticipants = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull]
     private ?string $sport = null;
 
-    #[ORM\ManyToOne(inversedBy: 'organizer')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'organizer')]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $organizer = null;
 
     #[ORM\ManyToOne(inversedBy: 'winner')]

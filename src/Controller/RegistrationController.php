@@ -13,14 +13,14 @@ use Doctrine\ORM\EntityManagerInterface;
 
 final class RegistrationController extends AbstractController
 {
-    #[Route('/api/tournaments/{id}/registrations', name: 'get_all', methods: 'GET')]
-    public function index(Tournament $tournament, RegistrationRepository $registrationRepo): JsonResponse
+    #[Route('/api/tournaments/{id}/registrations', name: 'get_all_register', methods: 'GET')]
+    public function get_register(Tournament $tournament, RegistrationRepository $registrationRepo): JsonResponse
     {
         $registrations = $registrationRepo->findBy(['tournament' => $tournament]);
         return $this->json($registrations, 200, [], ['groups' => 'registration:read']);
     }
 
-    #[Route('/api/tournaments/{id}/registrations', name: 'create', methods: 'POST')]
+    #[Route('/api/tournaments/{id}/registrations', name: 'create_register', methods: 'POST')]
     public function add_register(Request $request, Tournament $tournament, EntityManagerInterface $em, UserRepository $userRepo): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
@@ -55,7 +55,7 @@ final class RegistrationController extends AbstractController
         return $this->json($registration, 201, [], ['groups' => 'registration:read']);
     }
 
-    #[Route('/api/tournaments/{idTournament}/registrations/{idRegistration}', name: 'delete', methods: 'DELETE')]
+    #[Route('/api/tournaments/{idTournament}/registrations/{idRegistration}', name: 'delete_register', methods: 'DELETE')]
     public function delete_register(Tournament $tournament, Registration $registration, EntityManagerInterface $em): JsonResponse
     {
         if ($registration->getTournament()->getId() !== $tournament->getId()) {

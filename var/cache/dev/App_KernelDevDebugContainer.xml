@@ -26,6 +26,7 @@
       <parameter key="MonologBundle">Symfony\Bundle\MonologBundle\MonologBundle</parameter>
       <parameter key="MakerBundle">Symfony\Bundle\MakerBundle\MakerBundle</parameter>
       <parameter key="LexikJWTAuthenticationBundle">Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle</parameter>
+      <parameter key="DoctrineFixturesBundle">Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle</parameter>
     </parameter>
     <parameter key="kernel.bundles_metadata" type="collection">
       <parameter key="FrameworkBundle" type="collection">
@@ -79,6 +80,10 @@
       <parameter key="LexikJWTAuthenticationBundle" type="collection">
         <parameter key="path">C:\Users\Administrateur\Desktop\Projet_2PHPD\Projet2PHPD\vendor\lexik\jwt-authentication-bundle</parameter>
         <parameter key="namespace">Lexik\Bundle\JWTAuthenticationBundle</parameter>
+      </parameter>
+      <parameter key="DoctrineFixturesBundle" type="collection">
+        <parameter key="path">C:\Users\Administrateur\Desktop\Projet_2PHPD\Projet2PHPD\vendor\doctrine\doctrine-fixtures-bundle</parameter>
+        <parameter key="namespace">Doctrine\Bundle\FixturesBundle</parameter>
       </parameter>
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
@@ -398,6 +403,22 @@
         <argument type="service" id=".service_locator.ZyP9f7K.App\Controller\UserController"/>
       </call>
     </service>
+    <service id="App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true">
+      <tag name="doctrine.fixture.orm"/>
+    </service>
+    <service id="App\DataFixtures\RegistrationFixtures" class="App\DataFixtures\RegistrationFixtures" autowire="true" autoconfigure="true">
+      <tag name="doctrine.fixture.orm"/>
+    </service>
+    <service id="App\DataFixtures\SportMatchFixtures" class="App\DataFixtures\SportMatchFixtures" autowire="true" autoconfigure="true">
+      <tag name="doctrine.fixture.orm"/>
+    </service>
+    <service id="App\DataFixtures\TournamentFixtures" class="App\DataFixtures\TournamentFixtures" autowire="true" autoconfigure="true">
+      <tag name="doctrine.fixture.orm"/>
+    </service>
+    <service id="App\DataFixtures\UserFixtures" class="App\DataFixtures\UserFixtures" autowire="true" autoconfigure="true">
+      <tag name="doctrine.fixture.orm"/>
+      <argument type="service" id="security.user_password_hasher"/>
+    </service>
     <service id="App\Repository\RegistrationRepository" class="App\Repository\RegistrationRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
@@ -442,7 +463,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.vqcHRKE"/>
+      <argument type="service" id=".service_locator.Kc9XTpJ"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -2434,6 +2455,7 @@
           <argument>C:\Users\Administrateur\Desktop\Projet_2PHPD\Projet2PHPD\vendor\symfony\monolog-bundle/translations</argument>
           <argument>C:\Users\Administrateur\Desktop\Projet_2PHPD\Projet2PHPD\vendor\symfony\maker-bundle/translations</argument>
           <argument>C:\Users\Administrateur\Desktop\Projet_2PHPD\Projet2PHPD\vendor\lexik\jwt-authentication-bundle/translations</argument>
+          <argument>C:\Users\Administrateur\Desktop\Projet_2PHPD\Projet2PHPD\vendor\doctrine\doctrine-fixtures-bundle/translations</argument>
         </argument>
         <argument key="cache_vary" type="collection">
           <argument key="scanned_directories" type="collection">
@@ -2454,6 +2476,7 @@
             <argument>C:\Users\Administrateur\Desktop\Projet_2PHPD\Projet2PHPD\vendor\symfony\monolog-bundle/translations</argument>
             <argument>C:\Users\Administrateur\Desktop\Projet_2PHPD\Projet2PHPD\vendor\symfony\maker-bundle/translations</argument>
             <argument>C:\Users\Administrateur\Desktop\Projet_2PHPD\Projet2PHPD\vendor\lexik\jwt-authentication-bundle/translations</argument>
+            <argument>C:\Users\Administrateur\Desktop\Projet_2PHPD\Projet2PHPD\vendor\doctrine\doctrine-fixtures-bundle/translations</argument>
           </argument>
         </argument>
       </argument>
@@ -3420,7 +3443,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.vqcHRKE"/>
+      <argument type="service" id=".service_locator.Kc9XTpJ"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -7730,6 +7753,48 @@
         <argument>Generate public/private keys for use in your application.</argument>
       </call>
     </service>
+    <service id="doctrine.fixtures_load_command" class="Doctrine\Bundle\FixturesBundle\Command\LoadDataFixturesDoctrineCommand">
+      <tag name="console.command" command="doctrine:fixtures:load"/>
+      <tag name="container.no_preload"/>
+      <argument type="service" id="doctrine.fixtures.loader"/>
+      <argument type="service" id="doctrine"/>
+      <argument type="collection">
+        <argument key="default" type="service" id="doctrine.fixtures.purger.orm_purger_factory"/>
+      </argument>
+      <call method="setName">
+        <argument>doctrine:fixtures:load</argument>
+      </call>
+    </service>
+    <service id="doctrine.fixtures.loader" class="Doctrine\Bundle\FixturesBundle\Loader\SymfonyFixturesLoader">
+      <argument type="service" id="service_container"/>
+      <call method="addFixtures">
+        <argument type="collection">
+          <argument type="collection">
+            <argument key="fixture" type="service" id="App\DataFixtures\AppFixtures"/>
+            <argument key="groups" type="collection"/>
+          </argument>
+          <argument type="collection">
+            <argument key="fixture" type="service" id="App\DataFixtures\RegistrationFixtures"/>
+            <argument key="groups" type="collection"/>
+          </argument>
+          <argument type="collection">
+            <argument key="fixture" type="service" id="App\DataFixtures\SportMatchFixtures"/>
+            <argument key="groups" type="collection"/>
+          </argument>
+          <argument type="collection">
+            <argument key="fixture" type="service" id="App\DataFixtures\TournamentFixtures"/>
+            <argument key="groups" type="collection"/>
+          </argument>
+          <argument type="collection">
+            <argument key="fixture" type="service" id="App\DataFixtures\UserFixtures"/>
+            <argument key="groups" type="collection"/>
+          </argument>
+        </argument>
+      </call>
+    </service>
+    <service id="doctrine.fixtures.purger.orm_purger_factory" class="Doctrine\Bundle\FixturesBundle\Purger\ORMPurgerFactory">
+      <tag name="doctrine.fixtures.purger_factory" alias="default"/>
+    </service>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -7742,6 +7807,16 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\UserController" class="App\Controller\UserController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\UserController" class="App\Controller\UserController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\UserController" class="App\Controller\UserController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\RegistrationFixtures" class="App\DataFixtures\RegistrationFixtures" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\DataFixtures\RegistrationFixtures" class="App\DataFixtures\RegistrationFixtures" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\SportMatchFixtures" class="App\DataFixtures\SportMatchFixtures" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\DataFixtures\SportMatchFixtures" class="App\DataFixtures\SportMatchFixtures" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\TournamentFixtures" class="App\DataFixtures\TournamentFixtures" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\DataFixtures\TournamentFixtures" class="App\DataFixtures\TournamentFixtures" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\UserFixtures" class="App\DataFixtures\UserFixtures" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\DataFixtures\UserFixtures" class="App\DataFixtures\UserFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\RegistrationRepository" class="App\Repository\RegistrationRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\RegistrationRepository" class="App\Repository\RegistrationRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\SportMatchRepository" class="App\Repository\SportMatchRepository" autowire="true" abstract="true"/>
@@ -8400,17 +8475,17 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.zHyJIs5" method="withContext"/>
     </service>
-    <service id=".errored.C_DnRQK" class="App\Controller\Tournament">
-      <tag name="container.error" message="Cannot determine controller argument for &quot;App\Controller\RegistrationController::index()&quot;: the $tournament argument is type-hinted with the non-existent class or interface: &quot;App\Controller\Tournament&quot;. Did you forget to add a use statement?"/>
+    <service id=".errored.Ad0v6lt" class="App\Controller\Tournament">
+      <tag name="container.error" message="Cannot determine controller argument for &quot;App\Controller\RegistrationController::get_register()&quot;: the $tournament argument is type-hinted with the non-existent class or interface: &quot;App\Controller\Tournament&quot;. Did you forget to add a use statement?"/>
     </service>
-    <service id=".errored.Zdej1KT" class="App\Controller\RegistrationRepository">
-      <tag name="container.error" message="Cannot determine controller argument for &quot;App\Controller\RegistrationController::index()&quot;: the $registrationRepo argument is type-hinted with the non-existent class or interface: &quot;App\Controller\RegistrationRepository&quot;. Did you forget to add a use statement?"/>
+    <service id=".errored.MBdJDMZ" class="App\Controller\RegistrationRepository">
+      <tag name="container.error" message="Cannot determine controller argument for &quot;App\Controller\RegistrationController::get_register()&quot;: the $registrationRepo argument is type-hinted with the non-existent class or interface: &quot;App\Controller\RegistrationRepository&quot;. Did you forget to add a use statement?"/>
     </service>
-    <service id=".service_locator.jgZb2Sg" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.v9YT__x" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="tournament" type="service_closure" id=".errored.C_DnRQK"/>
-        <argument key="registrationRepo" type="service_closure" id=".errored.Zdej1KT"/>
+        <argument key="tournament" type="service_closure" id=".errored.Ad0v6lt"/>
+        <argument key="registrationRepo" type="service_closure" id=".errored.MBdJDMZ"/>
       </argument>
     </service>
     <service id=".errored.VkQxa8e" class="App\Controller\Tournament">
@@ -8450,13 +8525,13 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.47S9mhJ" method="withContext"/>
     </service>
-    <service id=".errored.WSxUIcf" class="App\Controller\Tournament">
-      <tag name="container.error" message="Cannot determine controller argument for &quot;App\Controller\SportMatchController::index()&quot;: the $tournament argument is type-hinted with the non-existent class or interface: &quot;App\Controller\Tournament&quot;. Did you forget to add a use statement?"/>
+    <service id=".errored.bO7_rOz" class="App\Controller\Tournament">
+      <tag name="container.error" message="Cannot determine controller argument for &quot;App\Controller\SportMatchController::get_matches()&quot;: the $tournament argument is type-hinted with the non-existent class or interface: &quot;App\Controller\Tournament&quot;. Did you forget to add a use statement?"/>
     </service>
-    <service id=".service_locator.hsPz4Q3" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.IcWrUw6" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="tournament" type="service_closure" id=".errored.WSxUIcf"/>
+        <argument key="tournament" type="service_closure" id=".errored.bO7_rOz"/>
       </argument>
     </service>
     <service id=".errored.d_Ct8Zb" class="App\Controller\Tournament">
@@ -8539,9 +8614,9 @@
         <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
       </argument>
     </service>
-    <service id=".service_locator.Kq27LHM.App\Controller\TournamentController::index()" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="App\Controller\TournamentController::index()"/>
-      <argument>App\Controller\TournamentController::index()</argument>
+    <service id=".service_locator.Kq27LHM.App\Controller\TournamentController::index_tournament()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\TournamentController::index_tournament()"/>
+      <argument>App\Controller\TournamentController::index_tournament()</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.Kq27LHM" method="withContext"/>
     </service>
@@ -8614,22 +8689,22 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.Kq27LHM" method="withContext"/>
     </service>
-    <service id=".service_locator.vqcHRKE" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.Kc9XTpJ" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="App\Kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="kernel::loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
-        <argument key="App\Controller\RegistrationController::index" type="service_closure" id=".service_locator.jgZb2Sg"/>
+        <argument key="App\Controller\RegistrationController::get_register" type="service_closure" id=".service_locator.v9YT__x"/>
         <argument key="App\Controller\RegistrationController::add_register" type="service_closure" id=".service_locator.Er87Bt8.App\Controller\RegistrationController::add_register()"/>
         <argument key="App\Controller\RegistrationController::delete_register" type="service_closure" id=".service_locator.47S9mhJ.App\Controller\RegistrationController::delete_register()"/>
-        <argument key="App\Controller\SportMatchController::index" type="service_closure" id=".service_locator.hsPz4Q3"/>
+        <argument key="App\Controller\SportMatchController::get_matches" type="service_closure" id=".service_locator.IcWrUw6"/>
         <argument key="App\Controller\SportMatchController::create_match" type="service_closure" id=".service_locator.OoKd.B3.App\Controller\SportMatchController::create_match()"/>
         <argument key="App\Controller\SportMatchController::get_match" type="service_closure" id=".service_locator.W2nZrx8.App\Controller\SportMatchController::get_match()"/>
         <argument key="App\Controller\SportMatchController::edit_match" type="service_closure" id=".service_locator.mWo0fPQ.App\Controller\SportMatchController::edit_match()"/>
         <argument key="App\Controller\SportMatchController::delete_match" type="service_closure" id=".service_locator.gAGJviZ.App\Controller\SportMatchController::delete_match()"/>
-        <argument key="App\Controller\TournamentController::index" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\TournamentController::index()"/>
+        <argument key="App\Controller\TournamentController::index_tournament" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\TournamentController::index_tournament()"/>
         <argument key="App\Controller\TournamentController::createTournament" type="service_closure" id=".service_locator.AJ5eq3c.App\Controller\TournamentController::createTournament()"/>
         <argument key="App\Controller\TournamentController::get_tournament" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\TournamentController::get_tournament()"/>
         <argument key="App\Controller\TournamentController::edit_tournament" type="service_closure" id=".service_locator.AJ5eq3c.App\Controller\TournamentController::edit_tournament()"/>
@@ -8641,15 +8716,15 @@
         <argument key="App\Controller\UserController::delete_player" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\UserController::delete_player()"/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
-        <argument key="App\Controller\RegistrationController:index" type="service_closure" id=".service_locator.jgZb2Sg"/>
+        <argument key="App\Controller\RegistrationController:get_register" type="service_closure" id=".service_locator.v9YT__x"/>
         <argument key="App\Controller\RegistrationController:add_register" type="service_closure" id=".service_locator.Er87Bt8.App\Controller\RegistrationController::add_register()"/>
         <argument key="App\Controller\RegistrationController:delete_register" type="service_closure" id=".service_locator.47S9mhJ.App\Controller\RegistrationController::delete_register()"/>
-        <argument key="App\Controller\SportMatchController:index" type="service_closure" id=".service_locator.hsPz4Q3"/>
+        <argument key="App\Controller\SportMatchController:get_matches" type="service_closure" id=".service_locator.IcWrUw6"/>
         <argument key="App\Controller\SportMatchController:create_match" type="service_closure" id=".service_locator.OoKd.B3.App\Controller\SportMatchController::create_match()"/>
         <argument key="App\Controller\SportMatchController:get_match" type="service_closure" id=".service_locator.W2nZrx8.App\Controller\SportMatchController::get_match()"/>
         <argument key="App\Controller\SportMatchController:edit_match" type="service_closure" id=".service_locator.mWo0fPQ.App\Controller\SportMatchController::edit_match()"/>
         <argument key="App\Controller\SportMatchController:delete_match" type="service_closure" id=".service_locator.gAGJviZ.App\Controller\SportMatchController::delete_match()"/>
-        <argument key="App\Controller\TournamentController:index" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\TournamentController::index()"/>
+        <argument key="App\Controller\TournamentController:index_tournament" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\TournamentController::index_tournament()"/>
         <argument key="App\Controller\TournamentController:createTournament" type="service_closure" id=".service_locator.AJ5eq3c.App\Controller\TournamentController::createTournament()"/>
         <argument key="App\Controller\TournamentController:get_tournament" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\TournamentController::get_tournament()"/>
         <argument key="App\Controller\TournamentController:edit_tournament" type="service_closure" id=".service_locator.AJ5eq3c.App\Controller\TournamentController::edit_tournament()"/>
@@ -10418,7 +10493,7 @@
     </service>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <tag name="container.no_preload"/>
-      <argument type="service" id=".service_locator.S7wr426"/>
+      <argument type="service" id=".service_locator.NP4L._7"/>
       <argument type="collection">
         <argument key="about">console.command.about</argument>
         <argument key="assets:install">console.command.assets_install</argument>
@@ -10512,6 +10587,7 @@
         <argument key="lexik:jwt:enable-encryption">lexik_jwt_authentication.enable_encryption_config_command</argument>
         <argument key="lexik:jwt:generate-token">lexik_jwt_authentication.generate_token_command</argument>
         <argument key="lexik:jwt:generate-keypair">lexik_jwt_authentication.generate_keypair_command</argument>
+        <argument key="doctrine:fixtures:load">doctrine.fixtures_load_command</argument>
         <argument key="make:auth">maker.auto_command.make_auth</argument>
         <argument key="make:command">maker.auto_command.make_command</argument>
         <argument key="make:twig-component">maker.auto_command.make_twig_component</argument>
@@ -10544,7 +10620,7 @@
         <argument key="make:webhook">maker.auto_command.make_webhook</argument>
       </argument>
     </service>
-    <service id=".service_locator.S7wr426" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.NP4L._7" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="console.command.about" type="service_closure" id=".console.command.about.lazy"/>
@@ -10639,6 +10715,7 @@
         <argument key="lexik_jwt_authentication.enable_encryption_config_command" type="service_closure" id=".lexik_jwt_authentication.enable_encryption_config_command.lazy"/>
         <argument key="lexik_jwt_authentication.generate_token_command" type="service_closure" id=".lexik_jwt_authentication.generate_token_command.lazy"/>
         <argument key="lexik_jwt_authentication.generate_keypair_command" type="service_closure" id=".lexik_jwt_authentication.generate_keypair_command.lazy"/>
+        <argument key="doctrine.fixtures_load_command" type="service_closure" id="doctrine.fixtures_load_command"/>
         <argument key="maker.auto_command.make_auth" type="service_closure" id=".maker.auto_command.make_auth.lazy"/>
         <argument key="maker.auto_command.make_command" type="service_closure" id=".maker.auto_command.make_command.lazy"/>
         <argument key="maker.auto_command.make_twig_component" type="service_closure" id=".maker.auto_command.make_twig_component.lazy"/>
@@ -10922,7 +10999,7 @@
     <service id="lexik_jwt_authentication.key_loader" alias="lexik_jwt_authentication.key_loader.raw" public="true"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.pRu6x_4" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.vqcHRKE"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.Kc9XTpJ"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.BxSdgVt"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>

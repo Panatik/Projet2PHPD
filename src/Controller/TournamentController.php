@@ -20,17 +20,25 @@ use Symfony\Component\Validator\Constraints as Assert; //permet de crée les con
 
 final class TournamentController extends AbstractController
 {
-    #[Route('/api/tournaments', name: 'get_all', methods: 'GET')] //aucune contrainte
-    public function index(EntityManagerInterface $em): JsonResponse
+    #[Route('/api/tournaments', name: 'get_all_tournament', methods: 'GET')] //aucune contrainte
+    public function index_tournament(EntityManagerInterface $em): JsonResponse
     {
         $tournament = $em->getRepository(Tournament::class)->findAll();
         return $this->json($tournament); //self.json
     }
 
-    #[Route('/api/tournaments', name: 'create', methods: 'POST')] //faut crée un tournois
+    #[Route('/api/tournaments', name: 'create_tournament', methods: 'POST')] //faut crée un tournois
     public function createTournament(Request $request, EntityManagerInterface $em, ValidatorInterface $validator): JsonResponse
     {
         $data = json_decode($request->getContent(), true); //ca permet de lire les infos 
+
+        if (!empty($data['organizer_id'])) {
+            $organizer = $em->getRepository(User::class)->find($data['organizer_id']);
+            if (!$organizer) {
+                return new JsonResponse(['error' => 'Organisateur introuvable'], 404);
+            }
+            $tournament->setOrganizer($organizer);
+        }
 
         //contraite
         $format_violation = $validator->validate($data, new Assert\Collection([ // donc ici tu listes les "comportements" a suivre
@@ -38,6 +46,11 @@ final class TournamentController extends AbstractController
             'startDate' => [new Assert\NotBlank(), new Assert\DateTime() ], //format date
             'endDate' => [new Assert\NotBlank(), new Assert\DateTime() ],
             'description' => new Assert\NotBlank(),
+            'max_participants' => [new Assert\NotNull(), new Assert\Positive()],
+            'sport' => [new Assert\NotBlank(), new Assert\Type('string')],
+            'organizer_id' => new Assert\Optional([
+        new Assert\Type('integer'),
+    ]),
         ]));
 
         if(count($format_violation) > 0){ //si la réponse retourne plus de 1 c'est qu'il y a des erreurs dans le format donc erreur
@@ -51,19 +64,21 @@ final class TournamentController extends AbstractController
         //sinon on crée le tournois et on le remplis
 
         $tournament = new Tournament();
-        $tournament->setName($data['name']);
+        $tournament->setTournamentName($data['name']);
         $tournament->setStartDate(new \DateTime($data['startDate']));
         $tournament->setEndDate(new \DateTime($data['endDate']));
         $tournament->setDescription($data['description']);
+        $tournament->setMaxParticipants($data['max_participants']);
+        $tournament->setSport($data['sport']);
 
         $em ->persist($tournament);
         $em ->flush(); //on envoie eheheh
 
-        return new JsonReponse ([ 'Etat' => 'Tournois crée']); //ici tu dis c'est ok
+        return new JsonResponse ([ 'Etat' => 'Tournois crée']); //ici tu dis c'est ok
 
     }
 
-    #[Route('/api/tournaments/{id}', name: 'get', methods: 'GET')] //avoir un tournois par son id
+    #[Route('/api/tournaments/{id}', name: 'get_tournament', methods: 'GET')] //avoir un tournois par son id
     public function get_tournament(EntityManagerInterface $em, int $id): JsonResponse
     {
         $tournament = $em->getRepository(Tournament::class)->find($id);
@@ -71,12 +86,12 @@ final class TournamentController extends AbstractController
         if($tournament){
             return $this->json($tournament);
         }else{
-            return new JsonReponse ([ 'errors' => 'Tournois non existant']);
+            return new JsonResponse ([ 'errors' => 'Tournois non existant']);
         }
         
     }
 
-    #[Route('/api/tournaments/{id}', name: 'edit', methods: 'PUT')]
+    #[Route('/api/tournaments/{id}', name: 'edit_tournament', methods: 'PUT')]
     public function edit_tournament(Request $request, EntityManagerInterface $em, ValidatorInterface $validator, int $id): JsonResponse
     {
         $tournament = $em->getRepository(Tournament::class)->find($id);
@@ -135,7 +150,7 @@ final class TournamentController extends AbstractController
     
     }
 
-    #[Route('/api/tournaments/{id}', name: 'delete', methods: 'DELETE')]
+    #[Route('/api/tournaments/{id}', name: 'delete_tournament', methods: 'DELETE')]
     public function delete_tournament(EntityManagerInterface $em, int $id): JsonResponse
     {
         $tournament = $em->getRepository(Tournament::class)->find($id);

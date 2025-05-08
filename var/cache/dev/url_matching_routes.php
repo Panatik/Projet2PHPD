@@ -16,6 +16,10 @@ return [
         '/_profiler/phpinfo' => [[['_route' => '_profiler_phpinfo', '_controller' => 'web_profiler.controller.profiler::phpinfoAction'], null, null, null, false, false, null]],
         '/_profiler/xdebug' => [[['_route' => '_profiler_xdebug', '_controller' => 'web_profiler.controller.profiler::xdebugAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
+        '/api/tournaments' => [
+            [['_route' => 'get_all_tournament', '_controller' => 'App\\Controller\\TournamentController::index_tournament'], null, ['GET' => 0], null, false, false, null],
+            [['_route' => 'create_tournament', '_controller' => 'App\\Controller\\TournamentController::createTournament'], null, ['POST' => 0], null, false, false, null],
+        ],
         '/api/players' => [[['_route' => 'get_all', '_controller' => 'App\\Controller\\UserController::index'], null, ['GET' => 0], null, false, false, null]],
         '/register' => [[['_route' => 'create', '_controller' => 'App\\Controller\\UserController::add_player'], null, ['POST' => 0], null, false, false, null]],
     ],
@@ -39,8 +43,25 @@ return [
                         .')'
                     .')'
                 .')'
-                .'|/api/players/([^/]++)(?'
-                    .'|(*:226)'
+                .'|/api/(?'
+                    .'|tournaments/([^/]++)(?'
+                        .'|/(?'
+                            .'|registrations(?'
+                                .'|(*:253)'
+                                .'|/([^/]++)(*:270)'
+                            .')'
+                            .'|sport\\-matchs(?'
+                                .'|(*:295)'
+                                .'|/([^/]++)(?'
+                                    .'|(*:315)'
+                                .')'
+                            .')'
+                        .')'
+                        .'|(*:326)'
+                    .')'
+                    .'|players/([^/]++)(?'
+                        .'|(*:354)'
+                    .')'
                 .')'
             .')/?$}sDu',
     ],
@@ -53,7 +74,25 @@ return [
         168 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
         181 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
         191 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
-        226 => [
+        253 => [
+            [['_route' => 'get_all_register', '_controller' => 'App\\Controller\\RegistrationController::get_register'], ['id'], ['GET' => 0], null, false, false, null],
+            [['_route' => 'create_register', '_controller' => 'App\\Controller\\RegistrationController::add_register'], ['id'], ['POST' => 0], null, false, false, null],
+        ],
+        270 => [[['_route' => 'delete_register', '_controller' => 'App\\Controller\\RegistrationController::delete_register'], ['idTournament', 'idRegistration'], ['DELETE' => 0], null, false, true, null]],
+        295 => [
+            [['_route' => 'get_all_match', '_controller' => 'App\\Controller\\SportMatchController::get_matches'], ['id'], ['GET' => 0], null, false, false, null],
+            [['_route' => 'create_match', '_controller' => 'App\\Controller\\SportMatchController::create_match'], ['id'], ['POST' => 0], null, false, false, null],
+        ],
+        315 => [
+            [['_route' => 'get_match', '_controller' => 'App\\Controller\\SportMatchController::get_match'], ['idTournament', 'idSportMatchs'], ['GET' => 0], null, false, true, null],
+            [['_route' => 'delete_match', '_controller' => 'App\\Controller\\SportMatchController::delete_match'], ['idTournament', 'idSportMatchs'], ['DELETE' => 0], null, false, true, null],
+        ],
+        326 => [
+            [['_route' => 'get_tournament', '_controller' => 'App\\Controller\\TournamentController::get_tournament'], ['id'], ['GET' => 0], null, false, true, null],
+            [['_route' => 'edit_tournament', '_controller' => 'App\\Controller\\TournamentController::edit_tournament'], ['id'], ['PUT' => 0], null, false, true, null],
+            [['_route' => 'delete_tournament', '_controller' => 'App\\Controller\\TournamentController::delete_tournament'], ['id'], ['DELETE' => 0], null, false, true, null],
+        ],
+        354 => [
             [['_route' => 'get', '_controller' => 'App\\Controller\\UserController::get_player'], ['id'], ['GET' => 0], null, false, true, null],
             [['_route' => 'edit', '_controller' => 'App\\Controller\\UserController::edit_player'], ['id'], ['PUT' => 0], null, false, true, null],
             [['_route' => 'delete', '_controller' => 'App\\Controller\\UserController::delete_player'], ['id'], ['DELETE' => 0], null, false, true, null],
